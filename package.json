@@ -1,0 +1,51 @@
+{
+    "private": true,
+    "workspaces": [
+        "packages/*",
+        "play",
+        "docs"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "docs": "pnpm --filter @day-day-up/docs docs",
+        "docs:build": "pnpm --filter @day-day-up/docs docs:build",
+        "commit": "git-cz",
+        "build:packages": "pnpm --filter @day-day-up/utils build && pnpm --filter @day-day-up/notes build"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@commitlint/cli": "^17.4.4",
+        "@commitlint/config-conventional": "^17.4.4",
+        "@types/jsdom": "^21.1.0",
+        "@types/lodash": "^4.14.191",
+        "@types/node": "^18.14.6",
+        "typescript": "^4.9.5"
+    },
+    "dependencies": {
+        "@rollup/plugin-commonjs": "^24.0.1",
+        "@rollup/plugin-node-resolve": "^15.0.1",
+        "@rollup/plugin-typescript": "^11.0.0",
+        "commitizen": "^4.3.0",
+        "cz-conventional-changelog": "^3.3.0",
+        "cz-customizable": "^7.0.0",
+        "rollup": "^3.18.0",
+        "rollup-plugin-cleandir": "^2.0.0",
+        "rollup-plugin-dts": "^5.2.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "vue": "^3.2.47"
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-customizable"
+        }
+    },
+    "pnpm": {
+        "peerDependencyRules": {
+            "ignoreMissing": [
+                "@algolia/client-search"
+            ]
+        }
+    }
+}
+

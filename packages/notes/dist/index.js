@@ -1,0 +1,1 @@
+import{dirname as l}from"path";import{fileURLToPath as o}from"url";var t=l(o(import.meta.url));console.log(t);var e=[[{text:t,collapsible:!0,collapsed:!0,items:t},{text:"面试题",collapsible:!0,collapsed:!0,items:[]}]];export{e as tinyBookNav};
