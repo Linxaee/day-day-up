@@ -12,7 +12,7 @@
  */
 Array.prototype.myFlat = function (deepNum = Infinity) {
     if (deepNum == 0) return this;
-    return this = this.reduce((total, value) => {
+    return this.reduce((total, value) => {
         return total.concat(Array.isArray(value) ? value.myFlat(deepNum - 1) : value);
     }, []);
 };

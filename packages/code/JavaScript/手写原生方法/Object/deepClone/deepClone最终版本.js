@@ -2,7 +2,7 @@ export const obj = {
     name: "gg",
     friends: ["1", "2", "3", "4"],
     age: 21,
-    [Symbol("666")]: 123
+    [Symbol("666")]: 123,
 };
 // 要做到能克隆 Symbol 、能继承原型链、也有性能优化
 function deepClone(obj, map = new WeakMap()) {

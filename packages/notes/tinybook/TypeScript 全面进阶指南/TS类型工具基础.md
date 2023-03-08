@@ -1,4 +1,4 @@
-# TS类型工具基础
+# TS 类型工具基础
 
 ---
 
@@ -46,9 +46,9 @@ function foo(input: string | number) {
 
 `isString` 函数称为类型守卫，在它的返回值中，我们不再使用 `boolean` 作为类型标注，而是使用 `input is string` 拆开来看它是这样的：
 
-- input 是函数的某个参数，也是类型守卫断言类型后可以向下传递的参数类型。
-- `is string`，即 **is 关键字 + 预期类型**，即如果这个函数成功返回为 true，那么 is 关键字前这个入参的类型，就会**被这个类型守卫调用方后续的类型控制流分析收集到**。
-- ！！！必须经过**控制流收窄**才有效！！！
+-   input 是函数的某个参数，也是类型守卫断言类型后可以向下传递的参数类型。
+-   `is string`，即 **is 关键字 + 预期类型**，即如果这个函数成功返回为 true，那么 is 关键字前这个入参的类型，就会**被这个类型守卫调用方后续的类型控制流分析收集到**。
+-   ！！！必须经过**控制流收窄**才有效！！！
 
 > **个人理解: **这里的 **is 关键字 + 预期类型** 取决于的函数并不是 `isString` 函数本身，而是取决于 `input is string` 这一表达式是否成立，也就是说只要 string 类型可以赋值给 input，那么调用 `isString` 处的后续类型控制流都将认定 input 为 string 类型，而不取决于 `isString` 实际调用时的返回结果。
 
@@ -86,11 +86,11 @@ function handle(input: Foo | Bar) {
 
 但值得注意的是，只有各个类型独有的属性才能作为区分条件，比如
 
-- 两个类型中，**互不相同**的属性名
-- 两个类型中，相同属性名但**不同的字面量**
-- 两个类型中，一方存在一方**不存在**的属性名
+-   两个类型中，**互不相同**的属性名
+-   两个类型中，相同属性名但**不同的字面量**
+-   两个类型中，一方存在一方**不存在**的属性名
 
-当然instanceof也可以作为类型守卫使用
+当然 instanceof 也可以作为类型守卫使用
 
 ```tsx
 class FooBase {}
@@ -120,11 +120,11 @@ function handle(input: Foo | Bar) {
 如果你写过测试用例或者使用过 NodeJS 的 assert 模块，那对断言这个概念应该不陌生：
 
 ```typescript
-import assert from 'assert';
+import assert from "assert";
 
-let name: any = 'linxae';
+let name: any = "linxae";
 
-assert(typeof name === 'number');
+assert(typeof name === "number");
 
 // number 类型
 name.toFixed();
@@ -157,4 +157,4 @@ assertIsNumber(name);
 name.toFixed();
 ```
 
-> **个人理解: **asserts断言类型守卫和普通的守卫区别在于 **一个作用于后续，一个作用域当前类型控制流分支**
+> **个人理解: **asserts 断言类型守卫和普通的守卫区别在于 **一个作用于后续，一个作用域当前类型控制流分支**

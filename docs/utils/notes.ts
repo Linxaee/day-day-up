@@ -16,19 +16,19 @@ function readDirectory(directoryPath: string, isTB: boolean): NavBarItem | LinkI
         text: basename,
         collapsed: true,
         collapsible: true,
-        items: []
+        items: [],
     };
     const linkItems: LinkItem[] = [];
     const entries = fs.readdirSync(directoryPath, { withFileTypes: true });
 
     for (const entry of entries) {
-        console.log(entry, entry.isDirectory());
-
         if (entry.name === "index.ts" || entry.isDirectory()) continue;
         const title = entry.name.slice(0, -3);
         const file: LinkItem = {
             text: title,
-            link: isTB ? `notes/${dirname}/${basename}/${title}` : `${dirname}/${basename}/${title}`
+            link: isTB
+                ? `notes/${dirname}/${basename}/${title}`
+                : `${dirname}/${basename}/${title}`,
         };
         isTB ? navBarItem.items.push(file) : linkItems.push(file);
     }

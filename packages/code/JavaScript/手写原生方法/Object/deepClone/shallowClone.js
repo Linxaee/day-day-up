@@ -1,10 +1,10 @@
 import { obj1 } from "./data.js";
 function shallowClone(obj) {
-	let cloneTarget = {};
-	for (const key in obj) {
-		cloneTarget[key] = obj[key];
-	}
-	return cloneTarget;
+    let cloneTarget = {};
+    for (const key in obj) {
+        cloneTarget[key] = obj[key];
+    }
+    return cloneTarget;
 }
 const obj2 = shallowClone(obj1);
 obj2.name = "Linxae";

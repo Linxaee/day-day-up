@@ -2,7 +2,7 @@
 
 ---
 
-### 1. never检查分支完整性
+### 1. never 检查分支完整性
 
 `never`类型被称为 **Bottom Type**，是**整个类型系统层级中最底层的类型**。和`null`、`undefined` 一样，它是所有类型的子类型，但只有`never`类型的变量能够赋值给另一个 `never`类型变量。利用这个特性我们可以检查分支判断的完整性。
 
@@ -36,12 +36,12 @@ if (typeof strOrNumOrBool === "string") {
 } else if (typeof strOrNumOrBool === "boolean") {
     strOrNumOrBool === true;
 } else {
-    const _typeCheck: never = strOrNumOrBool;// 在最后的分支中新增一个类型为never的变量，当分支没有全部处理时会报错
+    const _typeCheck: never = strOrNumOrBool; // 在最后的分支中新增一个类型为never的变量，当分支没有全部处理时会报错
     throw new Error(`Unknown input type: ${strOrNumOrBool}`);
 }
 ```
 
-switch同理
+switch 同理
 
 ```tsx
 switch (typeof strOrNumOrBool) {
@@ -76,14 +76,11 @@ interface IStruct {
         };
     };
 }
-const obj: IStruct = {};// 此时会有很多的类型报错
+const obj: IStruct = {}; // 此时会有很多的类型报错
 ```
 
 为避免报错且在保留类型检查提示的情况下，我们使用类型断言
 
 ```tsx
-const obj: IStruct = <IStruct>{};// 不再报错
+const obj: IStruct = <IStruct>{}; // 不再报错
 ```
-
-
-

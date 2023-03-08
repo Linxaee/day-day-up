@@ -4,11 +4,11 @@ import path from "path";
 export default defineConfig({
     plugins: [],
     server: {
-        port: 1999
+        port: 1999,
     },
     resolve: {
         alias: {
-            "@day-day-up/": path.resolve(__dirname, "../packages/")
-        }
-    }
+            "@day-day-up/": path.resolve(__dirname, "../packages/"),
+        },
+    },
 });
