@@ -1,4 +1,4 @@
-# 收集点面试题(JS篇)
+# 收集点面试题(JS 篇)
 
 ---
 
@@ -7,35 +7,35 @@
 下面这道题的输出？
 
 ```javascript
-const square = num => {
+const square = (num) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(num * num);
         }, 1000 * num);
     });
-}
+};
 
 function test() {
-    list.forEach(async x => {
+    list.forEach(async (x) => {
         const res = await square(x);
         console.log(res);
     });
 }
 
-test()
+test();
 ```
 
 一般会觉得 `forEach` 中会 await 暂停，也就是:
 
-1. 先3s 后输出 9
-2. 再2s 后输出 4
-3. 再1s 后输出 1
+1. 先 3s 后输出 9
+2. 再 2s 后输出 4
+3. 再 1s 后输出 1
 
 但实际结果是
 
-1. 先1s 后输出 1
-2. 再1s 后输出 4
-3. 再1s 后输出 9
+1. 先 1s 后输出 1
+2. 再 1s 后输出 4
+3. 再 1s 后输出 9
 
 看起来 **await 并没有暂停 `forEach` 的执行而是直接同时开启三个定时器。**
 
@@ -50,8 +50,7 @@ async function test() {
 }
 ```
 
-
-### 2. ==defineProperty 和 Proxy的区别==
+### 2. ==defineProperty 和 Proxy 的区别==
 
 1. `Proxy` 对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）。
 2. `defineProperty` 代理的是对象的属性，`Proxy` 代理的是对象。
@@ -64,7 +63,7 @@ async function test() {
 
 1. MVC：<img src="S:\daily-practice\笔记\面试题\JS.assets\image-20230303212233075.png" alt="image-20230303212233075" style="zoom: 50%;" />
 
-View的指令给Controller，Controller 改 Model，Model 通知 View 更新。这样的开发太过于繁琐，要写 MVC 三套独立的代码，维护性并没有提高。
+View 的指令给 Controller，Controller 改 Model，Model 通知 View 更新。这样的开发太过于繁琐，要写 MVC 三套独立的代码，维护性并没有提高。
 
 2. MVP：![image-20230303212532455](S:\daily-practice\笔记\面试题\JS.assets\image-20230303212532455.png)
 

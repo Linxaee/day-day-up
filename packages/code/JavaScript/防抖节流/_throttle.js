@@ -13,24 +13,24 @@
 
 // v2 第一次是否执行
 function throttle(fn, interval, option = { leading: true }) {
-	const { leading } = option;
-	let lastTime = 0;
+    const { leading } = option;
+    let lastTime = 0;
 
-	const _throttle = (...args) => {
-		const nowTime = new Date().getTime();
+    const _throttle = (...args) => {
+        const nowTime = new Date().getTime();
 
-		/**
-		 * @description nowTime是一个很大的值，如果leading为true，第一次interval-(nowTime - lastTime)一定为负
-		 * 若为false，则(nowTime - lastTime)为0，相减后>=0，第一次则不执行
-		 */
-		if (!lastTime && !leading) lastTime = nowTime;
-		const remainTime = interval - (nowTime - lastTime);
-		if (remainTime <= 0) {
-			fn.apply(this, args);
-			lastTime = nowTime;
-		}
-	};
-	return _throttle;
+        /**
+         * @description nowTime是一个很大的值，如果leading为true，第一次interval-(nowTime - lastTime)一定为负
+         * 若为false，则(nowTime - lastTime)为0，相减后>=0，第一次则不执行
+         */
+        if (!lastTime && !leading) lastTime = nowTime;
+        const remainTime = interval - (nowTime - lastTime);
+        if (remainTime <= 0) {
+            fn.apply(this, args);
+            lastTime = nowTime;
+        }
+    };
+    return _throttle;
 }
 
 // v3最后一次是否执行
@@ -72,42 +72,42 @@ function throttle(fn, interval, option = { leading: true }) {
 
 // v3最后一次是否执行
 function throttle(fn, interval, option = { leading: true, trailing: false }) {
-	let lastTime = 0;
-	let timer = undefined;
+    let lastTime = 0;
+    let timer = undefined;
 
-	const { leading, trailing } = option;
+    const { leading, trailing } = option;
 
-	const _throttle = (...args) => {
-		// 获取现在时间
-		const nowTime = new Date().getTime();
-		// 判断第一次是否执行，若不执行则前后相等确保remainTime大于0
-		if (!lastTime && !leading) lastTime = nowTime;
-		// 计算离下一次执行还有多少时间
-		const remainTime = interval - (nowTime - lastTime);
+    const _throttle = (...args) => {
+        // 获取现在时间
+        const nowTime = new Date().getTime();
+        // 判断第一次是否执行，若不执行则前后相等确保remainTime大于0
+        if (!lastTime && !leading) lastTime = nowTime;
+        // 计算离下一次执行还有多少时间
+        const remainTime = interval - (nowTime - lastTime);
 
-		if (remainTime <= 0) {
-			if (timer) {
-				clearTimeout(timer);
-				timer = undefined;
-			}
-			fn.apply(this, args);
-			lastTime = nowTime;
-			return;
-		}
+        if (remainTime <= 0) {
+            if (timer) {
+                clearTimeout(timer);
+                timer = undefined;
+            }
+            fn.apply(this, args);
+            lastTime = nowTime;
+            return;
+        }
 
-		if (trailing && !timer) {
-			timer = setTimeout(() => {
-				timer = undefined;
-				fn.apply(this, args);
-				lastTime = new Date().getTime();
-			}, remainTime);
-		}
-	};
+        if (trailing && !timer) {
+            timer = setTimeout(() => {
+                timer = undefined;
+                fn.apply(this, args);
+                lastTime = new Date().getTime();
+            }, remainTime);
+        }
+    };
 
-	_throttle.cancel = function () {
-		if (timer) clearTimeout(timer);
-		timer = undefined;
-		lastTime = 0;
-	};
-	return _throttle;
+    _throttle.cancel = function () {
+        if (timer) clearTimeout(timer);
+        timer = undefined;
+        lastTime = 0;
+    };
+    return _throttle;
 }

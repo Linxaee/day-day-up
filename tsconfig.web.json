@@ -2,10 +2,11 @@
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "composite": true,
-        "lib": ["ESNext", "ES2018"],
+        "jsx": "preserve",
+        "lib": ["ESNext", "ES2018", "ES2015"],
         "types": ["node"],
         "skipLibCheck": true
     },
-    "include": ["packages", "play"],
-    "exclude": ["**/dist"]
+    "include": ["packages"],
+    "exclude": ["**/dist", "node_modules"]
 }

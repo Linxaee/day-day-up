@@ -34,8 +34,8 @@ store.dispatch("system/getPageListAction", {
     pageUrl: "/user/list",
     queryInfo: {
         offset: 0,
-        size: 10
-    }
+        size: 10,
+    },
 });
 ```
 
@@ -91,8 +91,8 @@ store.dispatch<IGetPagePayload>({
     pageUrl: "/user/list",
     queryInfo: {
         offset: 0,
-        size: 10
-    }
+        size: 10,
+    },
 });
 ```
 

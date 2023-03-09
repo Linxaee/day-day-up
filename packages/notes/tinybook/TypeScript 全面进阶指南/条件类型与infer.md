@@ -1,4 +1,4 @@
-# 条件类型与infer
+# 条件类型与 infer
 
 ---
 
@@ -28,16 +28,16 @@ type Res2 = LiteralType<599>; // "other"
 
 ```typescript
 export type LiteralType<T> = T extends string
-	? "string"
-	: T extends number
-	? "number"
-	: T extends boolean
-	? "boolean"
-	: T extends null
-	? "null"
-	: T extends undefined
-	? "undefined"
-	: never;
+    ? "string"
+    : T extends number
+    ? "number"
+    : T extends boolean
+    ? "boolean"
+    : T extends null
+    ? "null"
+    : T extends undefined
+    ? "undefined"
+    : never;
 
 type Res1 = LiteralType<"linbudu">; // "string"
 type Res2 = LiteralType<599>; // "number"
@@ -81,7 +81,7 @@ universalAdd(10n, 10n); // bigint
 
 > **个人理解：**这里讲的就是类型层级那一篇里的，同一类型的字面量的联合类型 < 该类型，在这里的表现就是 599 | 1 extends number , 'linxae' | '599' extends string 这样的，所以可以封装一个工具类型函数来约束返回值。
 
-### 2. 引入infer
+### 2. 引入 infer
 
 ---
 
@@ -110,7 +110,7 @@ type NonStringResult2 = FunctionConditionType<() => number>;
 
 **提取传入的类型信息。**
 
-### 3. infer关键字
+### 3. infer 关键字
 
 ---
 
@@ -119,26 +119,18 @@ type NonStringResult2 = FunctionConditionType<() => number>;
 TypeScript 中支持通过 infer 关键字来**在条件类型中提取类型的某一部分信息**，比如上面我们要提取函数返回值类型的话，可以这么放：
 
 ```typescript
-type FunctionReturnType<T extends Func> = T extends (
-  ...args: any[]
-) => infer R
-  ? R
-  : never;
+type FunctionReturnType<T extends Func> = T extends (...args: any[]) => infer R ? R : never;
 ```
 
 看起来是新朋友，其实还是老伙计。上面的代码其实表达了，当传入的类型参数满足 `T extends (...args: any[] ) => infer R` 这样一个结构（不用管 `infer R`，当它是 any 就行），返回 `infer R `位置的值，即 R。否则，返回 never。
 
-> **人话翻译: **传进来的 T 满足 `(...args: any[]) => infer R` 这么一个结构吗，如果满足，就把infer R那个地方的东西 R 给返回，不然就返回never
+> **人话翻译: **传进来的 T 满足 `(...args: any[]) => infer R` 这么一个结构吗，如果满足，就把 infer R 那个地方的东西 R 给返回，不然就返回 never
 >
 > 比如 `FunctionConditionType<() => string>` 满足 `(...args: any[]) => infer R` 这么一个结构，infer R 那个地方是 string，那么 R 就是 string
 >
 > 所以 `FunctionConditionType<() => string>` 返回的类型就是 string
 
-
-
 **下面讲的太精彩了，我就直接全复制了**
-
-
 
 这里的**类型结构**当然并不局限于函数类型结构，还可以是数组：
 
@@ -153,31 +145,19 @@ type SwapResult2 = Swap<[1, 2, 3]>; // 不符合结构，没有发生替换，�
 
 ```typescript
 // 提取首尾两个
-type ExtractStartAndEnd<T extends any[]> = T extends [
-  infer Start,
-  ...any[],
-  infer End
-]
-  ? [Start, End]
-  : T;
+type ExtractStartAndEnd<T extends any[]> = T extends [infer Start, ...any[], infer End]
+    ? [Start, End]
+    : T;
 
 // 调换首尾两个
-type SwapStartAndEnd<T extends any[]> = T extends [
-  infer Start,
-  ...infer Left,
-  infer End
-]
-  ? [End, ...Left, Start]
-  : T;
+type SwapStartAndEnd<T extends any[]> = T extends [infer Start, ...infer Left, infer End]
+    ? [End, ...Left, Start]
+    : T;
 
 // 调换开头两个
-type SwapFirstTwo<T extends any[]> = T extends [
-  infer Start1,
-  infer Start2,
-  ...infer Left
-]
-  ? [Start2, Start1, ...Left]
-  : T;
+type SwapFirstTwo<T extends any[]> = T extends [infer Start1, infer Start2, ...infer Left]
+    ? [Start2, Start1, ...Left]
+    : T;
 ```
 
 是的，infer 甚至可以和 rest 操作符一样同时提取一组不定长的类型，而 `...any[]` 的用法是否也让你直呼神奇？上面的输入输出仍然都是数组，而实际上我们完全可以进行结构层面的转换。比如从数组到联合类型：
@@ -196,17 +176,17 @@ type ArrayItemTypeResult3 = ArrayItemType<[string, number]>; // string | number
 
 ```typescript
 // 提取对象的属性类型
-type PropType<T, K extends keyof T> = T extends { [Key in K]: infer R }
-  ? R
-  : never;
+type PropType<T, K extends keyof T> = T extends { [Key in K]: infer R } ? R : never;
 
-type PropTypeResult1 = PropType<{ name: string }, 'name'>; // string
-type PropTypeResult2 = PropType<{ name: string; age: number }, 'name' | 'age'>; // string | number
+type PropTypeResult1 = PropType<{ name: string }, "name">; // string
+type PropTypeResult2 = PropType<{ name: string; age: number }, "name" | "age">; // string | number
 
 // 反转键名与键值
-type ReverseKeyValue<T extends Record<string, unknown>> = T extends Record<infer K, infer V> ? Record<V & string, K> : never
+type ReverseKeyValue<T extends Record<string, unknown>> = T extends Record<infer K, infer V>
+    ? Record<V & string, K>
+    : never;
 
-type ReverseKeyValueResult1 = ReverseKeyValue<{ "key": "value" }>; // { "value": "key" }
+type ReverseKeyValueResult1 = ReverseKeyValue<{ key: "value" }>; // { "value": "key" }
 ```
 
 在这里，为了体现 infer 作为类型工具的属性，我们结合了索引类型与映射类型，以及使用 `& string` 来确保属性名为 string 类型的小技巧。
@@ -215,12 +195,9 @@ type ReverseKeyValueResult1 = ReverseKeyValue<{ "key": "value" }>; // { "value":
 
 ```typescript
 // 类型“V”不满足约束“string | number | symbol”。
-type ReverseKeyValue<T extends Record<string, string>> = T extends Record<
-  infer K,
-  infer V
->
-  ? Record<V, K>
-  : never;
+type ReverseKeyValue<T extends Record<string, string>> = T extends Record<infer K, infer V>
+    ? Record<V, K>
+    : never;
 ```
 
 明明约束已经声明了 V 的类型是 string，为什么还是报错了？
@@ -247,11 +224,7 @@ type PromiseValueResult3 = PromiseValue<Promise<Promise<boolean>>>; // Promise<b
 这种时候我们就需要进行嵌套地提取了：
 
 ```typescript
-type PromiseValue<T> = T extends Promise<infer V>
-  ? V extends Promise<infer N>
-    ? N
-    : V
-  : T;
+type PromiseValue<T> = T extends Promise<infer V> ? (V extends Promise<infer N> ? N : V) : T;
 ```
 
 当然，在这时应该使用递归来处理任意嵌套深度：
@@ -264,11 +237,11 @@ type PromiseValue<T> = T extends Promise<infer V> ? PromiseValue<V> : T;
 
 ### 4. 分布式条件类型
 
-----
+---
 
 分布式条件类型听起来真的很高级，但这里和分布式和分布式服务并不是一回事。**分布式条件类型（\*Distributive Conditional Type\*），也称条件类型的分布式特性**，只不过是条件类型在满足一定情况下会执行的逻辑而已。我们来看一个例子：
 
-- **是否通过泛型传入**
+-   **是否通过泛型传入**
 
 ```typescript
 type Condition<T> = T extends 1 | 2 | 3 ? T : never;
@@ -280,7 +253,7 @@ type Res1 = Condition<1 | 2 | 3 | 4 | 5>;
 type Res2 = 1 | 2 | 3 | 4 | 5 extends 1 | 2 | 3 ? 1 | 2 | 3 | 4 | 5 : never;
 ```
 
-- 是否被包裹
+-   是否被包裹
 
 ```typescript
 type Naked<T> = T extends boolean ? "Y" : "N";
@@ -297,15 +270,15 @@ type Res4 = Wrapped<number | boolean>; // 只接收一个元素为boolean类型�
 
 而条件类型分布式特性会产生的效果也很明显了，即将这个联合类型拆开来，每个分支分别进行一次条件类型判断，再将最后的结果合并起来（如 Naked 中）。如果再严谨一些，其实我们就得到了官方的解释：
 
-**对于属于裸类型参数的检查类型，条件类型会在实例化时期自动分发到联合类型上。**（***Conditional types in which the checked type is a naked type parameter are called distributive conditional types. Distributive conditional types are automatically distributed over union types during instantiation.***）
+**对于属于裸类型参数的检查类型，条件类型会在实例化时期自动分发到联合类型上。**（**_Conditional types in which the checked type is a naked type parameter are called distributive conditional types. Distributive conditional types are automatically distributed over union types during instantiation._**）
 
->**个人理解：**其实就是三个条件触发分布式
+> **个人理解：**其实就是三个条件触发分布式
 >
->1. 是 **泛型** 参数
->2. 参数是 **联合类型**
->3. 是 **裸参数**
+> 1.  是 **泛型** 参数
+> 2.  参数是 **联合类型**
+> 3.  是 **裸参数**
 >
->裸参数其实在下面也有讲到过，泛型参数不能被另一个工具函数或者是数组等包裹住。
+> 裸参数其实在下面也有讲到过，泛型参数不能被另一个工具函数或者是数组等包裹住。
 
 这里的自动分发，我们可以这么理解：
 
@@ -372,7 +345,7 @@ type IsNeverRes2 = IsNever<"linbudu">; // false
 
 ```typescript
 // 直接使用，返回联合类型
-type Tmp1 = any extends string ? 1 : 2;  // 1 | 2
+type Tmp1 = any extends string ? 1 : 2; // 1 | 2
 
 type Tmp2<T> = T extends string ? 1 : 2;
 // 通过泛型参数传入，同样返回联合类型
@@ -402,8 +375,8 @@ type Special4Res = Special4<never>; // never
 
 > **个人总结: **
 >
-> 1. any会在作为 **条件类型的判断参数** 或者 **泛型参数** 时直接跳过判断，返回联合类型
-> 2. never仅会在作为 **泛型参数** 时才会跳过返回never，其他时候正常判断
+> 1. any 会在作为 **条件类型的判断参数** 或者 **泛型参数** 时直接跳过判断，返回联合类型
+> 2. never 仅会在作为 **泛型参数** 时才会跳过返回 never，其他时候正常判断
 
 之所以分布式条件类型要这么设计，我个人理解主要是为了处理联合类型这种情况。就像我们到现在为止的伪代码都一直使用数组来表达联合类型一样，在类型世界中联合类型就像是一个集合一样。通过使用分布式条件类型，我们能轻易地进行集合之间的运算，比如交集：
 
@@ -422,7 +395,7 @@ type IntersectionRes = Intersection<1 | 2 | 3, 2 | 3 | 4>; // 2 | 3
 直接上结果
 
 ```typescript
-type IsAny<T> = 0 extends 1 & T ? true : false
+type IsAny<T> = 0 extends 1 & T ? true : false;
 
 type res1 = isAny<any>; // true
 type res2 = isAny<number>; // false
@@ -437,7 +410,7 @@ type Tmp2 = 1 & number; // 1
 type Tmp3 = 1 & 1; // 1
 ```
 
->**个人理解：**这里是因为，交叉类型在判断时是 **短板效应** ，也就是在交叉类型中哪一个类型最细分，就取哪一个类型，1 字面量能够赋值给 number 类型，那么就会取 1，但作为代表任意类型的 any 是顶层类型，当他存在在交叉类型中，**短板效应就失效了**，最终的类型必然会变成 any ，所以 `0 extends 1 & T` 这个式子里面的 T ，当且仅当 T 为 any 时才成立。
+> **个人理解：**这里是因为，交叉类型在判断时是 **短板效应** ，也就是在交叉类型中哪一个类型最细分，就取哪一个类型，1 字面量能够赋值给 number 类型，那么就会取 1，但作为代表任意类型的 any 是顶层类型，当他存在在交叉类型中，**短板效应就失效了**，最终的类型必然会变成 any ，所以 `0 extends 1 & T` 这个式子里面的 T ，当且仅当 T 为 any 时才成立。
 
 #### IsUnknown
 
@@ -460,4 +433,3 @@ type res4 = IsUnknown<unknown>; // true
 type res5 = IsUnknown<any>; // false
 type res6 = IsUnknown<boolean>; // false
 ```
-

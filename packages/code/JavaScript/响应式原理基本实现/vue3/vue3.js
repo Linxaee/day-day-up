@@ -17,7 +17,7 @@ class Depend {
         }
     }
     notify() {
-        this.reactiveFns.forEach(fn => {
+        this.reactiveFns.forEach((fn) => {
             fn();
         });
     }
@@ -52,7 +52,7 @@ function myReactive(obj) {
             const depend = getDepend(target, key);
             // 添加依赖
             depend.notify();
-        }
+        },
     });
 }
 
@@ -65,7 +65,7 @@ function watchFn(fn) {
 // 测试数据
 let obj = myReactive({
     name: "gg",
-    age: 18
+    age: 18,
 });
 
 watchFn(function () {

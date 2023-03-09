@@ -12,16 +12,16 @@ const PLUGINS = [
     NodeResolvePlugin(),
     TerserPlugin({
         compress: { drop_console: false },
-        format: { comments: false }
+        format: { comments: false },
     }),
-    CleandirPlugin("dist")
+    CleandirPlugin("dist"),
 ];
 
 export default {
     input: "./index.ts",
     output: {
         file: "dist/index.js",
-        format: "esm"
+        format: "esm",
     },
-    plugins: PLUGINS
+    plugins: PLUGINS,
 };

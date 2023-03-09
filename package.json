@@ -10,7 +10,9 @@
         "docs": "pnpm --filter @day-day-up/docs docs",
         "docs:build": "pnpm --filter @day-day-up/docs docs:build",
         "commit": "git-cz",
-        "build:packages": "pnpm --filter @day-day-up/utils build && pnpm --filter @day-day-up/notes build"
+        "build:packages": "pnpm --filter @day-day-up/utils build && pnpm --filter @day-day-up/notes build",
+        "format": "prettier --write .",
+        "lint": "eslint --ext .js,.vue,.ts ."
     },
     "author": "",
     "license": "ISC",
@@ -20,6 +22,13 @@
         "@types/jsdom": "^21.1.0",
         "@types/lodash": "^4.14.191",
         "@types/node": "^18.14.6",
+        "@typescript-eslint/eslint-plugin": "^5.54.1",
+        "@typescript-eslint/parser": "^5.54.1",
+        "eslint": "^8.35.0",
+        "eslint-config-prettier": "^8.7.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-vue": "^9.9.0",
+        "prettier": "^2.8.4",
         "typescript": "^4.9.5"
     },
     "dependencies": {
@@ -48,4 +57,3 @@
         }
     }
 }
-

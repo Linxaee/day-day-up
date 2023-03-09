@@ -4,10 +4,10 @@
  * @returns 遍历操作后的数组
  */
 Array.prototype.my_some = function (callback) {
-	for (let i = 0; i < this.length; i++) {
-		if (callback(this[i], i, this)) return true;
-	}
-	return false;
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)) return true;
+    }
+    return false;
 };
 
 let arr = [1, 2, 3, 4, 5];
