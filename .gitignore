@@ -1,3 +1,4 @@
 node_modules
 play
 tsconfig.play.json
+dist
