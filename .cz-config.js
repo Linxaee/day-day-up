@@ -10,6 +10,7 @@ module.exports = {
         { value: "🔧chore", name: "🔧chore: 开发工具变动(构建、脚手架工具等)" },
         { value: "🚬init", name: "🚬init: 模块初始化" },
         { value: "⚙config", name: "⚙config: 配置文件" },
+        { value: "🚧WIP", name: "🚧WIP: 功能开发" },
     ],
     scopes: [],
     // it needs to match the value for field type. Eg.: 'fix'

@@ -1,4 +1,5 @@
 import { tinybookItems, interviewItems, articlesItems } from "../notes";
+import { tc } from "../code";
 const nav = [
     { text: "代码", link: "/code/" },
     {
@@ -19,9 +20,15 @@ const sidebar = {
             items: [{ text: "目录", link: "/code/" }],
         },
         {
+            text: tc.title,
+            collapsible: true,
+            collapsed: false,
+            items: tc.items,
+        },
+        {
             text: "JavaScript",
             collapsible: true,
-            collapsed: true,
+            collapsed: false,
             items: [
                 {
                     text: "手写手写",
@@ -35,7 +42,7 @@ const sidebar = {
         {
             text: "CSS",
             collapsible: true,
-            collapsed: true,
+            collapsed: false,
             items: [
                 { text: "Introduction", link: "/code/interview" },
                 { text: "Getting Started", link: "/code/tinybook/tinybook" },

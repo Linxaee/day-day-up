@@ -1303,3 +1303,17 @@ h3 {
     top: 35%;
     left: 35%;
 }
+img {
+    display: inline-block;
+}
+@media (min-width: 1440px) {
+    .VPSidebar {
+        padding-left: max(32px, calc((93% - (var(--vp-layout-max-width) - 64px)) / 2)) !important;
+        width: calc(
+            (100% - (var(--vp-layout-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px
+        );
+    }
+    .VPNavBar.has-sidebar .title {
+        padding-left: max(32px, calc((93% - (var(--vp-layout-max-width) - 64px)) / 2)) !important;
+    }
+}
