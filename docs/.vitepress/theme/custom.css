@@ -1253,6 +1253,15 @@ p code {
     color: var(--lin-code-color) !important;
     background-color: var(--lin-code-bg) !important;
 }
+blockquote {
+    padding-left: 25px !important;
+}
+blockquote code {
+    padding: 2px 5px !important;
+    font-family: inherit !important;
+    color: var(--lin-code-color) !important;
+    background-color: var(--lin-code-bg) !important;
+}
 
 strong {
     color: var(--title-color);
