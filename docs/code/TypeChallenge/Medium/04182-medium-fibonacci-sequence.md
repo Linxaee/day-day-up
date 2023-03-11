@@ -43,8 +43,10 @@ type Fibonacci<T extends number> = T extends 0
 
 >知道正经算法怎么做就行，无非就是求出斐波那契数列的第n项。
 >
->- `MakeTuple` 生成 `length` 属性为 `N` 的元组。
->- `Add` 借助 `MakeTuple` 分别生成长度为 A/B 的元组，再解构到一起就是加法了。 
->- `MinusOne` 减一，还是比较简单的。
+>1. `MakeTuple` 生成 `length` 属性为 `N` 的元组。
+>
+>2. `Add` 借助 `MakeTuple` 分别生成长度为 A/B 的元组，再解构到一起就是加法了。 
+>
+>3. `MinusOne` 减一，还是比较简单的。
 >
 >剩下的就是用以上三个工具函数组合起来实现斐波那契数列第n项了。

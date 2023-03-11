@@ -45,8 +45,11 @@ const fn1 = (v: boolean, w: any) => v ? 1 : 2
 ## 你的代码
 
 ```ts
-
+type MyReturnType<T> = T extends (...args: any) => infer R ? R : never;
 ```
 ## 总结
 
+>`infer` 的最基础应用
 >
+>1. `infer R` 替代 `(...args: any) => 返回值类型` 处的 返回值类型，以此来提取出返回值的类型 作为`R`，然后返回。
+>2. 比如 `(...args: any) => number`，`R` 就会被推断为 `number` 进而返回 `number`

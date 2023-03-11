@@ -54,8 +54,11 @@ interface Expected2 {
 ## 你的代码
 
 ```ts
-
+type MyOmit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 ```
 ## 总结
 
+>借助 `Pick` 实现的 `Omit`
 >
+>1. `Exclude<keyof T, K>` 选出把 T 的键筛除掉传入的 K，其中 K 是一个联合类型，并且是 `keyof T`，也就是必定是 T 的键，此时筛去后，这个表达式的值就是 **除去不需要的键后需要的键**。
+>2. `Pick<T, Exclude<keyof T, K>>`，把第一步筛除后的键作为 `Pick` 的参数，再从 T 中提取出来即可。

@@ -94,8 +94,17 @@ type Expected2 = { readonly a: string } | { readonly b: number }
 ## 你的代码
 
 ```ts
-
+type DeepReadonly<T> = {
+    readonly [P in keyof T]: T[P] extends Record<string, any>
+        ? T[P] extends Function
+            ? T[P]
+            : DeepReadonly<T[P]>
+        : T[P];
+};
 ```
 ## 总结
 
+>虽然就是 [Easy 第 7 题](../Easy/00007-easy-readonly.md)的升级版，但这里有两个注意的点
 >
+>1. Function 也就是函数的属性是不可变的，对其属性进行 `readonly` 操作是错误的，所以要对 Function 类型进行额外判断，当类型为 Function 的时候直接返回类型即可。
+>2. `Record<string, any>` 不可以替换成 `Record<string, unknown>`，暂时还不太明白为啥，再看看。

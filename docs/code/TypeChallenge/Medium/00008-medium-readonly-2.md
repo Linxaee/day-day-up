@@ -65,8 +65,16 @@ interface Expected {
 ## 你的代码
 
 ```ts
-
+type MyReadonly2<T, K extends keyof T = keyof T> = {
+    readonly [P in K]: T[P];
+} & {
+    [P in Exclude<keyof T, K>]: T[P];
+};
 ```
 ## 总结
 
+>在 [Easy 第 7 题](../Easy/00007-easy-readonly.md) 的基础上的变种，这道题是部分添加 `readonly`
 >
+>1. 拆分成两部分，需要 `readonly` 的一部分，不需要的一部分
+>2. 需要的那一部分就是 `readonly [P in K]: T[P]` ，K 就是需要 `readonly` 的键，使用 `[P in K]` 依次取出
+>3. 不需要的那一部分就是 `[P in Exclude<keyof T, K>]: T[P]` 使用 `Exclude` 将 K 从 T 的键中排出再依次取出即可
