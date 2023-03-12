@@ -11,4 +11,4 @@ type cases = [
 ];
 
 // ============= Your Code Here =============
-type Shift<T> = any;
+type Shift<T extends any[]> = T extends [infer F, ...infer Rest] ? Rest : [];
