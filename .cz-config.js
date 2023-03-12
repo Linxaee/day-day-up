@@ -15,7 +15,13 @@ module.exports = {
     scopes: [],
     // it needs to match the value for field type. Eg.: 'fix'
     scopeOverrides: {
-        "💻coding": [{ name: "JavaScript" }, { name: "TypeScript" }, { name: "CSS" }],
+        "💻coding": [
+            { name: "JavaScript" },
+            { name: "TypeScript" },
+            { name: "CSS" },
+            { name: "Vue" },
+            { name: "React" },
+        ],
         "📔notes": [
             { name: "tinybook" },
             { name: "interview" },
